@@ -7,6 +7,8 @@ import javax.swing.text.Style;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 
 @SuppressWarnings("serial")
@@ -152,6 +154,17 @@ public class ConfigScreen extends JFrame implements ActionListener, ChangeListen
         monitorQualityTestButton.setText("Test Monitor Quality");
         monitorQualityTestButton.addActionListener(this);
         monitorQualityTestButton.setActionCommand("monitorTest");
+        monitorQualityTestButton.setToolTipText("Not available yet.");
+        monitorQualityTestButton.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentShown(ComponentEvent e) {
+                if (!monitorQualityTestButton.isEnabled()) {
+                    monitorQualityTestButton.setToolTipText("disabled");
+                } else {
+                    monitorQualityTestButton.setToolTipText(null); // Clear the tooltip when enabled
+                }
+            }
+        });
         monitorQualityTestButton.setEnabled(monitorQualityTestEnable);
         panel.add(monitorQualityTestButton);
 
